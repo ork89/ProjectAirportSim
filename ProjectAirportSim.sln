@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAirportSim", "ProjectAirportSim\ProjectAirportSim.csproj", "{19BA4443-5CA9-4D3A-9C45-000817AEC281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrivalDepartureTimers", "ArrivalDepartureTimers\ArrivalDepartureTimers.csproj", "{456B53B7-C0F5-4CBF-BFC4-FC1AB28152BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19BA4443-5CA9-4D3A-9C45-000817AEC281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19BA4443-5CA9-4D3A-9C45-000817AEC281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19BA4443-5CA9-4D3A-9C45-000817AEC281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19BA4443-5CA9-4D3A-9C45-000817AEC281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{456B53B7-C0F5-4CBF-BFC4-FC1AB28152BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{456B53B7-C0F5-4CBF-BFC4-FC1AB28152BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{456B53B7-C0F5-4CBF-BFC4-FC1AB28152BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{456B53B7-C0F5-4CBF-BFC4-FC1AB28152BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F431DD6A-A26E-4376-91F9-DEACA7A695A5}
+	EndGlobalSection
+EndGlobal
