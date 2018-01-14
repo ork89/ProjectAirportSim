@@ -108,6 +108,11 @@ namespace ProjectAirportSim.ViewModels
 			{
 				return _isVisible;
 			}
+			set
+			{
+				_isVisible = value;
+				RaisePropertyChanged("IsVisible");
+			}
 		}
 	}
 }

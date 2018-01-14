@@ -49,7 +49,7 @@ namespace ProjectAirportSim.ViewModels
 			}
 		}
 
-		public bool CheckIfplanesPresentInAirport()
+		public bool CheckIfplanesArePresentInAirport()
 		{
 			using (var entities = new AirportEntities())
 			{
@@ -75,7 +75,7 @@ namespace ProjectAirportSim.ViewModels
 		{
 			_planes.Clear();
 
-			if (CheckIfplanesPresentInAirport())
+			if (CheckIfplanesArePresentInAirport())
 			{
 				using (var entities = new AirportEntities())
 				{
@@ -84,10 +84,15 @@ namespace ProjectAirportSim.ViewModels
 						_planes.Add(_converter.ConvertAirportLogToFlightViewModel(item));
 					}
 				}
+
+				foreach (var plane in _planes)
+				{
+					plane.Arriving = false;
+					plane.IsVisible = false;
+				}
 			}
 
-			var test = _planes.Where(x => x.ID == 1).FirstOrDefault();
-			test.Arriving = false;
+			
 		}
 
 		bool CanUpdateListofPlanes()

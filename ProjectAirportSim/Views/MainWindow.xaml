@@ -19,6 +19,7 @@
 		<local:FlightViewModel />
 	</Window.DataContext>
 
+
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="170" />
@@ -120,18 +121,18 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeLeft.png"
-					Visibility="{Binding IsArriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Location 9  -->
-				
-					<Image
-						Grid.Row="1"
-						Grid.Column="1"
-						Width="100"
-						Height="50"
-						Source="..\images\planeLeft.png"
-						Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-				
+
+				<Image
+					Grid.Row="1"
+					Grid.Column="1"
+					Width="100"
+					Height="50"
+					Source="..\images\planeLeft.png"
+					Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
 				<!--  Location 5  -->
 				<Rectangle
 					Grid.Row="2"
@@ -154,7 +155,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeDown.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Location 8  -->
 				<Rectangle
@@ -222,7 +223,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeDown.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Parking Spot 7  -->
 				<Rectangle
