@@ -12,7 +12,7 @@ namespace ProjectAirportSim.Views
 		{
 			InitializeComponent();
 
-			var airportViewModel = new ViewModels.AirportViewModel();
+			var airportViewModel = new AirportViewModel();
 			this.DataContext = airportViewModel;
 		}
 	}

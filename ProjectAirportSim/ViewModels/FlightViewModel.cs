@@ -101,7 +101,7 @@ namespace ProjectAirportSim.ViewModels
 			}
 		}
 
-		bool _isVisible = false;
+		bool _isVisible = true;
 		public bool IsVisible
 		{
 			get

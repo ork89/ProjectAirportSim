@@ -7,7 +7,7 @@ namespace ArrivalDepartureTimers
 	public class FlightDepartureTimer
 	{
 		Timer timer;
-		AirportViewModel airportVM = new AirportViewModel();
+		FlightViewModel airportVM = new FlightViewModel();
 		public bool FlightDepartured { get; set; }
 		private string _FlightDeparturing;
 
