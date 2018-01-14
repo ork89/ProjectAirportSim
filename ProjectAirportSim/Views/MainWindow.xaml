@@ -95,6 +95,7 @@
 					Grid.Column="5"
 					Width="100"
 					Height="50"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeLeft.png" />
 				
 				<!-- Location 4 -->
@@ -117,6 +118,7 @@
 					Grid.Column="4"
 					Width="100"
 					Height="50"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeLeft.png" />
 				
 				<!--Location 9-->
@@ -125,7 +127,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BoolToVisibility}}"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeLeft.png" />
 				
 				<!--Location 5-->
@@ -149,6 +151,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeDown.png" />
 
 				<!-- Location 8 -->
@@ -171,6 +174,7 @@
 					Grid.Column="4"
 					Width="100"
 					Height="50"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeUp.png" />
 				
 				<!-- Location Driveway -->
@@ -193,6 +197,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeRight.png" />
 				
 				<!-- Parking Spot 6-->
@@ -214,6 +219,7 @@
 					Grid.Column="2"
 					Width="100"
 					Height="50"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeDown.png" />
 
 				<!-- Parking Spot 7-->
@@ -235,6 +241,7 @@
 					Grid.Column="3"
 					Width="100"
 					Height="50"
+					Visibility="{Binding  Path=Arriving, Converter={StaticResource BoolToVisibility}}"
 					Source="..\images\planeDown.png" />
 
 				<!-- Terminal -->
