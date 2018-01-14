@@ -1,5 +1,4 @@
-﻿using ProjectAirportSim.Enums;
-using ProjectAirportSim.Helpers;
+﻿using ProjectAirportSim.Helpers;
 using ProjectAirportSim.Models;
 using System;
 using System.Collections.ObjectModel;
@@ -76,7 +75,7 @@ namespace ProjectAirportSim.ViewModels
 		{
 			_planes.Clear();
 
-			if(CheckIfplanesPresentInAirport())
+			if (CheckIfplanesPresentInAirport())
 			{
 				using (var entities = new AirportEntities())
 				{

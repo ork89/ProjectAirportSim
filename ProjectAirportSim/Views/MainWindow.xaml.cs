@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ProjectAirportSim.ViewModels;
+using System.Windows;
 
 namespace ProjectAirportSim.Views
 {
@@ -10,6 +11,9 @@ namespace ProjectAirportSim.Views
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			var airportViewModel = new ViewModels.AirportViewModel();
+			this.DataContext = airportViewModel;
 		}
 	}
 }

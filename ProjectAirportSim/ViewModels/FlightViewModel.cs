@@ -11,8 +11,7 @@ namespace ProjectAirportSim.ViewModels
 			_plane = new Flight { FlightName = "TestFlight", Location = 1, ArrivalDate = DateTime.UtcNow, DepartureDate = null, Arriving = true };
 		}
 
-		Flight _plane;
-
+		Flight _plane;		
 
 		public Flight Plane
 		{
@@ -102,5 +101,13 @@ namespace ProjectAirportSim.ViewModels
 			}
 		}
 
+		bool _isVisible = false;
+		public bool IsVisible
+		{
+			get
+			{
+				return _isVisible;
+			}
+		}
 	}
 }
