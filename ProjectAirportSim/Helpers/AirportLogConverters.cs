@@ -13,9 +13,10 @@ namespace ProjectAirportSim.Helpers
 			{
 				ID = log.ID,
 				FlightName = log.FlightName,
+				Location = log.Location,
 				ArrivalDate = log.ArrivalDate,
 				DepartureDate = log.DepartureDate,
-				Location = log.Location
+				Arriving = log.Arriving
 			};
 
 			return _flight;
@@ -29,7 +30,9 @@ namespace ProjectAirportSim.Helpers
 				FlightName = log.FlightName,
 				Location = log.Location,
 				ArrivalDate = log.ArrivalDate,
-				DepartureDate = log.DepartureDate
+				DepartureDate = log.DepartureDate,
+				Arriving = log.Arriving
+			
 			};
 
 			return _flightVM;

@@ -9,25 +9,21 @@ namespace ProjectAirportSim.ViewModels
 {
 	public class AirportViewModel
 	{
+		private bool? _isVisible;
 		AirportLogConverters _converter;
-		private ObservableCollection<FlightViewModel> _planes = new ObservableCollection<FlightViewModel>();
+		private ObservableCollection<FlightViewModel> _planes;
 
 		public AirportViewModel()
 		{
+			_planes = new ObservableCollection<FlightViewModel>();
 			_converter = new AirportLogConverters();
 			GetListOfPlanes();
 		}
 
 		public ObservableCollection<FlightViewModel> ListOfPlanes
 		{
-			get
-			{
-				return _planes;
-			}
-			set
-			{
-				_planes = value;
-			}
+			get { return _planes; }
+			set { _planes = value; }
 		}
 
 		public void CreateNewPlaneInDB(string flightName, DateTime arrivalTime)
@@ -79,22 +75,25 @@ namespace ProjectAirportSim.ViewModels
 			{
 				using (var entities = new AirportEntities())
 				{
-					foreach (var item in entities.AirportLogs)
+					if (entities != null)
 					{
-						_planes.Add(_converter.ConvertAirportLogToFlightViewModel(item));
+						foreach (var item in entities.AirportLogs)
+						{
+							_planes.Add(_converter.ConvertAirportLogToFlightViewModel(item));
+							_isVisible = item.Arriving;
+						}
 					}
-
-					var test = _planes.Where(x => x.ID == 1).FirstOrDefault();
-					test.IsVisible = false;
-
 				}
 			}
 		}
 
-		bool CanUpdateListofPlanes()
+		private bool CanUpdateListofPlanes()
 		{
 			return true;
 		}
+
+		public bool? Visible => _planes.Where(v => v.Arriving.Value == false).Any();
+
 
 		public ICommand UpdateListOfPlanes { get { return new RelayCommand(GetListOfPlanes, CanUpdateListofPlanes); } }
 	}

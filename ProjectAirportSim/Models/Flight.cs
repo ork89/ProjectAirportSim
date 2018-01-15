@@ -11,6 +11,6 @@ namespace ProjectAirportSim.Models
 		public DateTime? DepartureDate { get; set; }
 
 		// Arriving is true from creation to deleltion (locations: 6,7,9)
-		public bool Arriving { get; set; }
+		public bool? Arriving { get; set; }
 	}
 }

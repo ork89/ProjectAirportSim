@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AirportSimDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AirportSimDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AirportLog">
           <Key>
             <PropertyRef Name="ID" />
@@ -14,12 +14,12 @@
           <Property Name="Location" Type="int" Nullable="false" />
           <Property Name="ArrivalDate" Type="datetime" />
           <Property Name="DepartureDate" Type="datetime" />
+          <Property Name="Arriving" Type="bit" />
         </EntityType>
         <EntityContainer Name="AirportSimDBModelStoreContainer">
           <EntitySet Name="AirportLog" EntityType="Self.AirportLog" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AirportSimDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -32,6 +32,7 @@
           <Property Name="Location" Type="Int32" Nullable="false" />
           <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
           <Property Name="DepartureDate" Type="DateTime" Precision="3" />
+          <Property Name="Arriving" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="AirportEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AirportLogs" EntityType="Self.AirportLog" />
@@ -45,6 +46,7 @@
           <EntitySetMapping Name="AirportLogs">
             <EntityTypeMapping TypeName="AirportSimDBModel.AirportLog">
               <MappingFragment StoreEntitySet="AirportLog">
+                <ScalarProperty Name="Arriving" ColumnName="Arriving" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FlightName" ColumnName="FlightName" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
@@ -67,8 +69,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

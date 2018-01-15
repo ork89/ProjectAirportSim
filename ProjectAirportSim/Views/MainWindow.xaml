@@ -3,8 +3,8 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:ProjectAirportSim.ViewModels"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	Title="Airport Simulator"
 	Width="1024"
 	Height="768"
@@ -97,7 +97,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeLeft.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Location 4  -->
 				<Rectangle
@@ -121,7 +121,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeLeft.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Location 9  -->
 
@@ -131,7 +131,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeLeft.png"
-					Visibility="{Binding Path=IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Location 5  -->
 				<Rectangle
@@ -155,7 +155,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeDown.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Location 8  -->
 				<Rectangle
@@ -178,7 +178,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeUp.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Location Driveway  -->
 				<Rectangle
@@ -201,7 +201,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeRight.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Parking Spot 6  -->
 				<Rectangle
@@ -223,7 +223,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeDown.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Parking Spot 7  -->
 				<Rectangle
@@ -245,7 +245,7 @@
 					Width="100"
 					Height="50"
 					Source="..\images\planeDown.png"
-					Visibility="{Binding Path=Arriving, Converter={StaticResource BooleanToVisibilityConverter}}" />
+					Visibility="{Binding Path=Visible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 				<!--  Terminal  -->
 				<Rectangle
