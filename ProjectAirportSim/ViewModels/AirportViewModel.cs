@@ -1,8 +1,6 @@
 ﻿using ProjectAirportSim.Helpers;
-using ProjectAirportSim.Models;
-using System;
+using ProjectAirportSim.BL;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace ProjectAirportSim.ViewModels
@@ -10,13 +8,15 @@ namespace ProjectAirportSim.ViewModels
 	public class AirportViewModel
 	{
 		private bool? _isVisible;
+		ControlTower _tower;
 		AirportLogConverters _converter;
 		private ObservableCollection<FlightViewModel> _planes;
 
 		public AirportViewModel()
 		{
-			_planes = new ObservableCollection<FlightViewModel>();
+			_tower = new ControlTower();
 			_converter = new AirportLogConverters();
+			_planes = new ObservableCollection<FlightViewModel>();
 			GetListOfPlanes();
 		}
 
@@ -26,52 +26,11 @@ namespace ProjectAirportSim.ViewModels
 			set { _planes = value; }
 		}
 
-		public void CreateNewPlaneInDB(string flightName, DateTime arrivalTime)
-		{
-			using (var entities = new AirportEntities())
-			{
-				var firstLocation = Locations.InAir;
-
-				var plane = new AirportLog()
-				{
-					FlightName = flightName,
-					Location = (int)firstLocation,
-					ArrivalDate = arrivalTime,
-					DepartureDate = null
-				};
-
-				entities.AirportLogs.Add(plane);
-				entities.SaveChanges();
-			}
-		}
-
-		public bool CheckIfplanesArePresentInAirport()
-		{
-			using (var entities = new AirportEntities())
-			{
-				var cehckForPlanes = entities.AirportLogs.Any(p => p.DepartureDate == null);
-				return cehckForPlanes;
-			}
-		}
-
-		public void RemovePlaneFromAirport(string planeName)
-		{
-			using (var entities = new AirportEntities())
-			{
-				var planeToRemove = entities.AirportLogs.Where(flight => flight.FlightName == planeName).FirstOrDefault();
-
-				if (planeToRemove.Location == 6 || planeToRemove.Location == 7 || planeToRemove.Location == 9)
-					entities.AirportLogs.Remove(planeToRemove);
-
-				entities.SaveChanges();
-			}
-		}
-
 		private void GetListOfPlanes()
 		{
 			_planes.Clear();
 
-			if (CheckIfplanesArePresentInAirport())
+			if (_tower.CheckIfplanesArePresentInAirport())
 			{
 				using (var entities = new AirportEntities())
 				{
@@ -87,13 +46,12 @@ namespace ProjectAirportSim.ViewModels
 			}
 		}
 
+		public bool? Visible => _isVisible;
+
 		private bool CanUpdateListofPlanes()
 		{
 			return true;
 		}
-
-		public bool? Visible => _planes.Where(v => v.Arriving.Value == false).Any();
-
 
 		public ICommand UpdateListOfPlanes { get { return new RelayCommand(GetListOfPlanes, CanUpdateListofPlanes); } }
 	}

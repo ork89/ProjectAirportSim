@@ -1,4 +1,5 @@
-﻿using ProjectAirportSim.ViewModels;
+﻿using ProjectAirportSim.BL;
+using ProjectAirportSim.ViewModels;
 using System;
 using System.Timers;
 
@@ -6,18 +7,18 @@ namespace ArrivalDepartureTimers
 {
 	public class FlightArrivalTimer
 	{
-		Timer timer;
-		AirportViewModel airportVM = new AirportViewModel();
+		Timer _timer;
+		ControlTower _tower = new ControlTower();
 		private const string _alphaNumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 		public void PlaneArriving()
 		{
-			timer = new Timer();
-			timer.Interval = 5000;
-			timer.Elapsed += OnTimedEvent;
-			timer.AutoReset = true;
+			_timer = new Timer();
+			_timer.Interval = 5000;
+			_timer.Elapsed += OnTimedEvent;
+			_timer.AutoReset = true;
 
-			timer.Start();
+			_timer.Start();
 		}
 
 		private void OnTimedEvent(object sender, ElapsedEventArgs e)
@@ -26,7 +27,7 @@ namespace ArrivalDepartureTimers
 			var arrivalTime = e.SignalTime;
 
 			Console.WriteLine("Flight " + planeName + " Approaching Airport " + arrivalTime);
-			airportVM.CreateNewPlaneInDB(planeName, arrivalTime);
+			_tower.CreateNewPlaneInDB(planeName, arrivalTime);
 		}
 
 		private string GenerateNewFlightName()

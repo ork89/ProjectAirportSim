@@ -81,6 +81,7 @@
     <Compile Include="AirportLog.cs">
       <DependentUpon>AirportDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="BL\ControlTower.cs" />
     <Compile Include="Helpers\AirportLogConverters.cs" />
     <Compile Include="Helpers\NotifyPropertyChanged.cs" />
     <Compile Include="Helpers\PropertySupport.cs" />

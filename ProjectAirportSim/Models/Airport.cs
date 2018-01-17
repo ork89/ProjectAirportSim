@@ -4,7 +4,6 @@ namespace ProjectAirportSim.Models
 {
 	public class Airport
 	{
-
 		private List<Flight> _listOfFlights;
 		private List<Location> _listOfLocations;
 		private bool _emergency;
