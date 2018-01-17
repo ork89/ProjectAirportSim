@@ -9,6 +9,6 @@ namespace ProjectAirportSim.Models
 		public int Location { get; set; }
 		public DateTime? ArrivalDate { get; set; }
 		public DateTime? DepartureDate { get; set; }
-		public bool? Arriving { get; set; }
+		public bool Arriving { get; set; }
 	}
 }

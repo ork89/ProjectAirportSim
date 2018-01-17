@@ -19,6 +19,6 @@ namespace ProjectAirportSim
         public int Location { get; set; }
         public Nullable<System.DateTime> ArrivalDate { get; set; }
         public Nullable<System.DateTime> DepartureDate { get; set; }
-        public Nullable<bool> Arriving { get; set; }
+        public bool Arriving { get; set; }
     }
 }

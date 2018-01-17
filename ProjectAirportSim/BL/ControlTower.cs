@@ -1,11 +1,22 @@
-﻿using ProjectAirportSim.Models;
+﻿using ProjectAirportSim.Helpers;
+using ProjectAirportSim.Models;
+using ProjectAirportSim.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace ProjectAirportSim.BL
 {
 	public class ControlTower
 	{
+		//var entities = new AirportEntities()
+		AirportLogConverters _converter;
+		public ControlTower()
+		{
+			_converter = new AirportLogConverters();
+		}
+
 		public void CreateNewPlaneInDB(string flightName, DateTime arrivalTime)
 		{
 			using (var entities = new AirportEntities())
@@ -45,6 +56,47 @@ namespace ProjectAirportSim.BL
 
 				entities.SaveChanges();
 			}
+		}
+
+		public bool IsAnyFlightAboutToDepart()
+		{
+			using (var entities = new AirportEntities())
+			{
+				var planesInAirport = entities.AirportLogs.Where(loc => loc.Location == 9).ToList();
+				return planesInAirport.Any();
+			}
+		}
+
+		public List<FlightViewModel> GetListOfDepartingFlights()
+		{
+			using (var entities = new AirportEntities())
+			{
+				var departingFlights = entities.AirportLogs.Where(plane => plane.Location == 6 || plane.Location == 7 || plane.Location == 9).ToList();
+
+				if (departingFlights.Any())
+					return _converter.ConvertListOfAirportLogToFVModel(departingFlights);
+
+				//If there are no planes about to depart return an empty list
+				return new List<FlightViewModel>();
+			}
+		}
+
+		public Dictionary<int, bool> GetListOfLocations(ObservableCollection<FlightViewModel> flightsList)
+		{
+			var locationStatusDic = new Dictionary<int, bool>();
+
+			using (var entities = new AirportEntities())
+			{
+				foreach (var flight in flightsList)
+				{
+					var location = flight.Location;
+					var arriving = flight.Arriving;
+
+					locationStatusDic.Add(location, arriving);
+				}
+			}
+
+			return locationStatusDic;
 		}
 	}
 }

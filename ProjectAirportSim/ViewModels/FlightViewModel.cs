@@ -88,7 +88,7 @@ namespace ProjectAirportSim.ViewModels
 			}
 		}
 
-		public bool? Arriving
+		public bool Arriving
 		{
 			get { return Plane.Arriving; }
 			set
