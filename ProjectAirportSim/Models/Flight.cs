@@ -10,5 +10,6 @@ namespace ProjectAirportSim.Models
 		public DateTime? ArrivalDate { get; set; }
 		public DateTime? DepartureDate { get; set; }
 		public bool Arriving { get; set; }
+		public bool Visible { get; set; }
 	}
 }

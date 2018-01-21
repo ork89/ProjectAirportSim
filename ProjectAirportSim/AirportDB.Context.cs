@@ -9,15 +9,22 @@
 
 namespace ProjectAirportSim
 {
-	using System.Data.Entity;
-
-	public partial class AirportEntities : DbContext
-	{
-		public AirportEntities()
-			: base("AirportEntities")
-		{
-		}
-
-		public virtual DbSet<AirportLog> AirportLogs { get; set; }
-	}
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    
+    public partial class AirportEntities : DbContext
+    {
+        public AirportEntities()
+            : base("name=AirportEntities")
+        {
+        }
+    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
+    
+        public virtual DbSet<AirportLog> AirportLogs { get; set; }
+    }
 }

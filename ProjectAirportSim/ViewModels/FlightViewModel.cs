@@ -8,7 +8,7 @@ namespace ProjectAirportSim.ViewModels
 	{
 		public FlightViewModel()
 		{
-			_plane = new Flight { FlightName = "Dummy", Location = 1, ArrivalDate = DateTime.UtcNow, DepartureDate = null, Arriving = true };
+			_plane = new Flight { FlightName = "Dummy", Location = 1, ArrivalDate = DateTime.UtcNow, DepartureDate = null, Arriving = true, Visible = false };
 		}
 
 		Flight _plane;
@@ -51,14 +51,14 @@ namespace ProjectAirportSim.ViewModels
 			}
 		}
 
-		public int Location
+		public int PlaneLocation
 		{
 			get { return Plane.Location; }
 			set
 			{
 				if (Plane.Location != value)
 					Plane.Location = value;
-				RaisePropertyChanged("Location");
+				RaisePropertyChanged("PlaneLocation");
 			}
 		}
 
@@ -97,6 +97,19 @@ namespace ProjectAirportSim.ViewModels
 				{
 					Plane.Arriving = value;
 					RaisePropertyChanged("Arriving");
+				}
+			}
+		}
+
+		public bool Visible
+		{
+			get { return Plane.Visible; }
+			set
+			{
+				if (Plane.Visible != value)
+				{
+					Plane.Visible = value;
+					RaisePropertyChanged("Visible");
 				}
 			}
 		}

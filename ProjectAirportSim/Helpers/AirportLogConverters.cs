@@ -1,6 +1,11 @@
 ﻿using ProjectAirportSim.Models;
 using ProjectAirportSim.ViewModels;
 using System.Collections.Generic;
+using System.Windows.Data;
+using System;
+using System.Globalization;
+using System.Windows;
+using ProjectAirportSim.BL;
 
 namespace ProjectAirportSim.Helpers
 {
@@ -17,22 +22,22 @@ namespace ProjectAirportSim.Helpers
 				Location = log.Location,
 				ArrivalDate = log.ArrivalDate,
 				DepartureDate = log.DepartureDate,
-				Arriving = log.Arriving
+				Arriving = (bool)log.Arriving
 			};
 
 			return _flight;
 		}
 
-		public FlightViewModel ConvertAirportLogToFlightViewModel(AirportLog log)
+		public FlightViewModel ConvertAirportLogToFlightVM(AirportLog log)
 		{
 			var _flightVM = new FlightViewModel
 			{
 				ID = log.ID,
 				FlightName = log.FlightName,
-				Location = log.Location,
+				PlaneLocation = log.Location,
 				ArrivalDate = log.ArrivalDate,
 				DepartureDate = log.DepartureDate,
-				Arriving = log.Arriving
+				Arriving = (bool)log.Arriving
 			};
 
 			return _flightVM;
@@ -43,10 +48,24 @@ namespace ProjectAirportSim.Helpers
 			var newListOfFlightVM = new List<FlightViewModel>();
 			if (listOfLogs.Count > 0)
 			{
-				listOfLogs.ForEach(item => newListOfFlightVM.Add(ConvertAirportLogToFlightViewModel(item)));
+				listOfLogs.ForEach(item => newListOfFlightVM.Add(ConvertAirportLogToFlightVM(item)));
 			}
 
 			return newListOfFlightVM;
 		}
 	}
+
+	public class LocationToVisibilityConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return false;
+		}
+	}
+
 }

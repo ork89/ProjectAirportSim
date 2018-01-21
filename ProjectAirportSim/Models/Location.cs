@@ -2,21 +2,20 @@
 {
 	public class Location
 	{
-		public Locations LocationID { get; set; }
-		public bool IsOccupiedOrEmpty { get; set; }
+		public int LocationID { get; set; }
+		public bool IsOccupied { get; set; }
 	}
 
 	public enum Locations
 	{
-		NotYetExists,
-		InAir,
-		ApprochingAirport,
-		Landing,
+		InAir1,
+		InAir2,
+		InAir3,
 		Runway,
 		ApproachParking,
 		ParkingSpot1,
 		ParkingSpot2,
 		ApproachRunway,
-		Departure
+		TakeOff
 	}
 }

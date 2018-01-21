@@ -26,8 +26,7 @@ namespace ProjectAirportSim.Helpers
 			OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
 		}
 
-		//[Conditional("DEBUG")]
-		[DebuggerStepThrough]
+		
 		public void VerifyPropertyName(String propertyName)
 		{
 			// verify that the property name matches a real,  

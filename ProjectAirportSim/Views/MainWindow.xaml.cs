@@ -8,12 +8,12 @@ namespace ProjectAirportSim.Views
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		AirportViewModel airportVM = new AirportViewModel();
+
 		public MainWindow()
 		{
 			InitializeComponent();
-
-			var airportViewModel = new AirportViewModel();
-			this.DataContext = airportViewModel;
+			this.DataContext = airportVM;
 		}
 	}
 }

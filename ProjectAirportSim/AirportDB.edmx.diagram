@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="27bb850c40a543659fa3358f9da31eff" Name="Diagram1">
-        <EntityTypeShape EntityType="AirportSimDBModel.AirportLog" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AirportSimDBModel.AirportLog" Width="1.5" PointX="8.5" PointY="2.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

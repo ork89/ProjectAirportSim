@@ -1,58 +1,76 @@
-﻿using ProjectAirportSim.Helpers;
-using ProjectAirportSim.BL;
+﻿using ProjectAirportSim.BL;
+using ProjectAirportSim.Helpers;
+using ProjectAirportSim.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ProjectAirportSim.ViewModels
 {
-	public class AirportViewModel
+	public class AirportViewModel : NotifyPropertyChanged
 	{
-		private bool? _isVisible;
+
 		ControlTower _tower;
 		AirportLogConverters _converter;
-		private ObservableCollection<FlightViewModel> _planes;
+		private ObservableCollection<FlightViewModel> _flights;
+		private bool _isVisible;
 
 		public AirportViewModel()
 		{
 			_tower = new ControlTower();
 			_converter = new AirportLogConverters();
-			_planes = new ObservableCollection<FlightViewModel>();
-			GetListOfPlanes();
+			_flights = new ObservableCollection<FlightViewModel>();
+
+			GetListOfFlights();
+			GetLocations();
 		}
 
 		public ObservableCollection<FlightViewModel> ListOfPlanes
 		{
-			get { return _planes; }
-			set { _planes = value; }
+			get { return _flights; }
+			set { _flights = value; }
 		}
 
-		private void GetListOfPlanes()
+		public bool IsVisible
 		{
-			_planes.Clear();
-
-			if (_tower.CheckIfplanesArePresentInAirport())
+			get { return _isVisible; }
+			set
 			{
-				using (var entities = new AirportEntities())
+				if (_isVisible != value)
 				{
-					if (entities != null)
-					{
-						foreach (var item in entities.AirportLogs)
-						{
-							_planes.Add(_converter.ConvertAirportLogToFlightViewModel(item));
-							_isVisible = item.Arriving;
-						}
-					}
+					_isVisible = value;
+					RaisePropertyChanged("IsVisible");
 				}
 			}
 		}
 
-		public bool? Visible => _isVisible;
-
-		private bool CanUpdateListofPlanes()
+		private void GetListOfFlights()
 		{
-			return true;
+			_flights = _tower.GetAllFlightsFromDB();
 		}
 
-		public ICommand UpdateListOfPlanes { get { return new RelayCommand(GetListOfPlanes, CanUpdateListofPlanes); } }
+		private void GetLocations()
+		{
+			var locationStatus = _tower.GetListOfLocationsAndStatus();
+			
+			foreach (var flight in _flights)
+			{
+				if (locationStatus.ContainsKey(flight.PlaneLocation))
+				{
+					flight.Visible = true;
+					_isVisible = true;
+					RaisePropertyChanged("IsVisible");
+				}	
+			}
+		}
+
+		private bool CanExecuteGetFlightsUpdate() => true;
+		private bool CanExecuteGetLocationsUpdate() => true;
+
+		public ICommand UpdateListOfFlights { get { return new RelayCommand(GetListOfFlights, CanExecuteGetFlightsUpdate); } }
+		public ICommand UpdateLocations { get { return new RelayCommand(GetLocations, CanExecuteGetLocationsUpdate); } }
 	}
 }

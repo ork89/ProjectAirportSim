@@ -1,5 +1,4 @@
 ﻿using ProjectAirportSim.Helpers;
-using ProjectAirportSim.Models;
 using ProjectAirportSim.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,8 +9,8 @@ namespace ProjectAirportSim.BL
 {
 	public class ControlTower
 	{
-		//var entities = new AirportEntities()
 		AirportLogConverters _converter;
+
 		public ControlTower()
 		{
 			_converter = new AirportLogConverters();
@@ -21,14 +20,12 @@ namespace ProjectAirportSim.BL
 		{
 			using (var entities = new AirportEntities())
 			{
-				var currentLocation = Locations.InAir;
-
 				var plane = new AirportLog()
 				{
 					FlightName = flightName,
-					Location = (int)currentLocation,
+					Location = 1,
 					ArrivalDate = arrivalTime,
-					Arriving = true
+					Arriving = true,
 				};
 
 				entities.AirportLogs.Add(plane);
@@ -36,16 +33,36 @@ namespace ProjectAirportSim.BL
 			}
 		}
 
-		public bool CheckIfplanesArePresentInAirport()
+		public ObservableCollection<FlightViewModel> GetAllFlightsFromDB()
+		{
+			var listOfFlights = new ObservableCollection<FlightViewModel>();
+
+			using (var entites = new AirportEntities())
+			{
+				if (entites != null)
+				{
+					foreach (var item in entites.AirportLogs)
+					{
+						listOfFlights.Add(_converter.ConvertAirportLogToFlightVM(item));
+					}
+				}
+			}
+
+			return listOfFlights;
+		}
+
+		public bool CheckIfFlightsArePresentInAirport()
 		{
 			using (var entities = new AirportEntities())
 			{
+				if (entities == null) return false;
+
 				var cehckForPlanes = entities.AirportLogs.Any(p => p.DepartureDate == null);
 				return cehckForPlanes;
 			}
 		}
 
-		public void RemovePlaneFromAirport(string planeName)
+		public void RemoveFlightFromAirport(string planeName)
 		{
 			using (var entities = new AirportEntities())
 			{
@@ -81,22 +98,32 @@ namespace ProjectAirportSim.BL
 			}
 		}
 
-		public Dictionary<int, bool> GetListOfLocations(ObservableCollection<FlightViewModel> flightsList)
+		public Dictionary<int, bool> GetListOfLocationsAndStatus()
 		{
-			var locationStatusDic = new Dictionary<int, bool>();
+			var _locations = new List<int>();
+			Dictionary<int, bool> locationDic = new Dictionary<int, bool>();
 
 			using (var entities = new AirportEntities())
 			{
-				foreach (var flight in flightsList)
+				if (entities.AirportLogs.Any())
 				{
-					var location = flight.Location;
-					var arriving = flight.Arriving;
+					_locations = entities.AirportLogs.Select(loc => loc.Location).OrderBy(o => o).Distinct().ToList();
 
-					locationStatusDic.Add(location, arriving);
+					for (int index = 1; index < 10; index++)
+					{
+						var status = false;
+
+						if (_locations.Contains(index))
+						{
+							status = true;
+						}
+
+						locationDic.Add(index, status);
+					}
 				}
 			}
 
-			return locationStatusDic;
+			return locationDic;
 		}
 	}
 }
