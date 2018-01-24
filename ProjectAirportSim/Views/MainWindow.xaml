@@ -54,17 +54,9 @@
 			Grid.Row="1"
 			Width="Auto"
 			Margin="0,0,20,0"
-			VerticalAlignment="Center" HorizontalAlignment="Right"
+			VerticalAlignment="Center" HorizontalAlignment="Center"
 			Command="{Binding UpdateListOfFlights}"
-			Content="Refresh" />
-
-		<Button
-			Grid.Row="1"
-			Width="Auto"
-			Margin="20,0,0,0"
-			VerticalAlignment="Center" HorizontalAlignment="Left"
-			Command="{Binding UpdateLocations}"
-			Content="Locations" />
+			Content="Refresh List" />
 
 		<StackPanel
 			Grid.Row="0"
@@ -72,11 +64,6 @@
 			Grid.Column="1"
 			Grid.ColumnSpan="1"
 			Background="LightGray">
-
-			<!--<StackPanel.Resources>
-				<local:FlightViewModel x:Key="FlightVM"/>
-				<BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
-			</StackPanel.Resources>-->
 
 			<Grid>
 				<Grid.Resources>
@@ -115,8 +102,7 @@
 					Grid.Column="5"
 					Width="100"
 					Height="50"
-					Source="..\images\planeLeft.png"
-					Visibility="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeLeft.png" />
 
 				<!--  Location 4  -->
 				<Rectangle
@@ -140,8 +126,7 @@
 					Grid.Column="4"
 					Width="100"
 					Height="50"
-					Source="..\images\planeLeft.png"
-					Visibility="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeLeft.png" />
 
 				<!--  Location 9  -->
 
@@ -151,8 +136,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
-					Source="..\images\planeLeft.png"
-					Visibility="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeLeft.png"/>
 
 				<!--  Location 5  -->
 				<Rectangle
@@ -176,8 +160,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
-					Source="..\images\planeDown.png"
-					Visibility="{Binding Path=IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeDown.png"/>
 
 				<!--  Location 8  -->
 				<Rectangle
@@ -200,8 +183,7 @@
 					Grid.Column="4"
 					Width="100"
 					Height="50"
-					Source="..\images\planeUp.png"
-					Visibility="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeUp.png" />
 
 				<!--  Location DrivewayParking  -->
 				<Rectangle
@@ -224,8 +206,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
-					Source="..\images\planeRight.png"
-					Visibility="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeRight.png"/>
 
 				<!--  Parking Spot 6  -->
 				<Rectangle
@@ -247,8 +228,7 @@
 					Grid.Column="2"
 					Width="100"
 					Height="50"
-					Source="..\images\planeDown.png"
-					Visibility="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeDown.png"/>
 
 				<!--  Parking Spot 7  -->
 				<Rectangle
@@ -270,8 +250,7 @@
 					Grid.Column="3"
 					Width="100"
 					Height="50"
-					Source="..\images\planeDown.png"
-					Visibility="{Binding IsVisible, Converter={StaticResource VisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+					Source="..\images\planeDown.png" />
 
 				<!--  Terminal  -->
 				<Rectangle

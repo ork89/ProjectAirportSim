@@ -1,5 +1,6 @@
 ﻿using ProjectAirportSim.ViewModels;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ProjectAirportSim.Views
 {
@@ -14,6 +15,38 @@ namespace ProjectAirportSim.Views
 		{
 			InitializeComponent();
 			this.DataContext = airportVM;
+
+			ControlPlaneImageVisibility();
+		}
+
+		private void ControlPlaneImageVisibility()
+		{
+			var locations = airportVM.GetLocations();
+
+			Image[] imageArr =
+			{
+				InAir,
+				InAir,
+				InAir,
+				Runway,
+				DrivewayLanding,
+				Parking6,
+				Parking7,
+				DrivewayTakeOff,
+				Departure
+			};
+
+			for (int index = 0; index < imageArr.Length; index++)
+			{
+				if (locations[index])
+				{
+					imageArr[index].Visibility = Visibility.Visible;
+				}
+				else
+				{
+					imageArr[index].Visibility = Visibility.Collapsed;
+				}
+			}
 		}
 	}
 }

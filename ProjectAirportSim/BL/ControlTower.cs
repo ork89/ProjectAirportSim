@@ -109,7 +109,7 @@ namespace ProjectAirportSim.BL
 				{
 					_locations = entities.AirportLogs.Select(loc => loc.Location).OrderBy(o => o).Distinct().ToList();
 
-					for (int index = 1; index < 10; index++)
+					for (int index = 1; index < 11; index++)
 					{
 						var status = false;
 

@@ -8,7 +8,7 @@ namespace ProjectAirportSim.ViewModels
 	{
 		public FlightViewModel()
 		{
-			_plane = new Flight { FlightName = "Dummy", Location = 1, ArrivalDate = DateTime.UtcNow, DepartureDate = null, Arriving = true, Visible = false };
+			_plane = new Flight { FlightName = "Dummy", Location = 1, ArrivalDate = DateTime.UtcNow, DepartureDate = null, Arriving = true, Visible = true };
 		}
 
 		Flight _plane;
