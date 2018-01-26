@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="FlightArrivalTimer.cs" />
     <Compile Include="FlightDepartureTimer.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Timers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

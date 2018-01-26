@@ -2,7 +2,7 @@
 
 namespace ArrivalDepartureTimers
 {
-	public class Program
+	public class Timers
 	{
 		static void Main(string[] args)
 		{
@@ -10,7 +10,6 @@ namespace ArrivalDepartureTimers
 			FlightDepartureTimer departureTimer = new FlightDepartureTimer();
 
 			arrivalTimer.PlaneArriving();
-			//departureTimer.PlaneDepaturing();
 
 			Console.ReadKey();
 		}

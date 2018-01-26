@@ -1,5 +1,4 @@
 ﻿using ProjectAirportSim.BL;
-using ProjectAirportSim.ViewModels;
 using System;
 using System.Timers;
 
@@ -13,8 +12,7 @@ namespace ArrivalDepartureTimers
 
 		public void PlaneArriving()
 		{
-			_timer = new Timer();
-			_timer.Interval = 5000;
+			_timer = new Timer { Interval = 10000 };
 			_timer.Elapsed += OnTimedEvent;
 			_timer.AutoReset = true;
 

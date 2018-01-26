@@ -9,18 +9,18 @@ namespace ProjectAirportSim.ViewModels
 	public class AirportViewModel : NotifyPropertyChanged
 	{
 
-		ControlTower _tower;
-		AirportLogConverters _converter;
+		ControlTower _tower = new ControlTower();
 		private ObservableCollection<FlightViewModel> _flights;
+		private ObservableCollection<LocationViewModel> _locations;
 
 		public AirportViewModel()
 		{
-			_tower = new ControlTower();
-			_converter = new AirportLogConverters();
+			//_tower = new ControlTower();
 			_flights = new ObservableCollection<FlightViewModel>();
+			_locations = new ObservableCollection<LocationViewModel>();
 
-			GetListOfFlights();
-			GetLocations();
+			ExecuteGetListOfFlights();
+			GetListOfLocations();
 		}
 
 		public ObservableCollection<FlightViewModel> ListOfPlanes
@@ -29,23 +29,24 @@ namespace ProjectAirportSim.ViewModels
 			set { _flights = value; }
 		}
 
-		private void GetListOfFlights()
+		public ObservableCollection<LocationViewModel> ListOfLocations
+		{
+			get { return _locations; }
+			set { _locations = value; }
+		}
+
+		private void GetListOfLocations()
+		{
+			_locations = _tower.GetListOfLocationsAndStatus();
+		}
+
+		private void ExecuteGetListOfFlights()
 		{
 			_flights = _tower.GetAllFlightsFromDB();
 		}
 
-		public bool[] GetLocations()
-		{
-			var locationStatus = _tower.GetListOfLocationsAndStatus();
-			var locationArr = locationStatus.Values.ToArray();
-
-			return locationArr;
-		}
-
 		private bool CanExecuteGetFlightsUpdate() => true;
-		//private bool CanExecuteGetLocationsUpdate() => true;
 
-		public ICommand UpdateListOfFlights { get { return new RelayCommand(GetListOfFlights, CanExecuteGetFlightsUpdate); } }
-		//public ICommand UpdateLocations { get { return new RelayCommand(GetLocations, CanExecuteGetLocationsUpdate); } }
+		public ICommand UpdateListOfFlights { get { return new RelayCommand(ExecuteGetListOfFlights, CanExecuteGetFlightsUpdate); } }
 	}
 }

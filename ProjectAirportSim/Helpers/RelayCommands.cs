@@ -16,9 +16,7 @@ namespace ProjectAirportSim.Helpers
 
 		public RelayCommand(Action<T> execute, Predicate<T> canExecute)
 		{
-			if (execute == null)
-				throw new ArgumentNullException("execute");
-			_execute = execute;
+			_execute = execute ?? throw new ArgumentNullException("execute");
 			_canExecute = canExecute;
 		}
 
@@ -60,10 +58,7 @@ namespace ProjectAirportSim.Helpers
 
 		public RelayCommand(Action execute, Func<Boolean> canExecute)
 		{
-
-			if (execute == null)
-				throw new ArgumentNullException("execute");
-			_execute = execute;
+			_execute = execute ?? throw new ArgumentNullException("execute");
 			_canExecute = canExecute;
 		}
 

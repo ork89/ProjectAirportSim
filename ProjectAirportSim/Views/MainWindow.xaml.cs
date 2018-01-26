@@ -15,14 +15,13 @@ namespace ProjectAirportSim.Views
 		{
 			InitializeComponent();
 			this.DataContext = airportVM;
-
-			ControlPlaneImageVisibility();
+			
+			PlaneVisibility();
 		}
 
-		private void ControlPlaneImageVisibility()
+		private void PlaneVisibility()
 		{
-			var locations = airportVM.GetLocations();
-
+			var locations = airportVM.ListOfLocations;
 			Image[] imageArr =
 			{
 				InAir,
@@ -33,18 +32,18 @@ namespace ProjectAirportSim.Views
 				Parking6,
 				Parking7,
 				DrivewayTakeOff,
-				Departure
+				TakeOff
 			};
 
-			for (int index = 0; index < imageArr.Length; index++)
+			foreach (var item in locations)
 			{
-				if (locations[index])
+				if (item.LocationStatus)
 				{
-					imageArr[index].Visibility = Visibility.Visible;
+					imageArr[item.LocationID].Visibility = Visibility.Visible;
 				}
 				else
 				{
-					imageArr[index].Visibility = Visibility.Collapsed;
+					imageArr[item.LocationID].Visibility = Visibility.Collapsed;
 				}
 			}
 		}

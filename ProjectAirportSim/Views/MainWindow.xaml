@@ -13,7 +13,7 @@
 	mc:Ignorable="d">
 
 	<Window.Resources>
-		<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+		<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 	</Window.Resources>
 
 	<Grid>
@@ -45,7 +45,7 @@
 						<Label Content="Loc: " />
 						<Label Content="{Binding PlaneLocation}" />
 						<Label Content="{Binding FlightName}" />
-						<Label Content="{Binding Visible}" />
+						<Label Content="{Binding Arriving}" />
 					</StackPanel>
 				</DataTemplate>
 			</ListView.ItemTemplate>
@@ -54,7 +54,8 @@
 			Grid.Row="1"
 			Width="Auto"
 			Margin="0,0,20,0"
-			VerticalAlignment="Center" HorizontalAlignment="Center"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
 			Command="{Binding UpdateListOfFlights}"
 			Content="Refresh List" />
 
@@ -67,10 +68,10 @@
 
 			<Grid>
 				<Grid.Resources>
-					<BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
-					
+					<BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+
 				</Grid.Resources>
-				
+
 				<Grid.RowDefinitions>
 					<RowDefinition Height="50" />
 					<RowDefinition Height="*" />
@@ -131,12 +132,12 @@
 				<!--  Location 9  -->
 
 				<Image
-					Name="Departure"
+					Name="TakeOff"
 					Grid.Row="1"
 					Grid.Column="1"
 					Width="100"
 					Height="50"
-					Source="..\images\planeLeft.png"/>
+					Source="..\images\planeLeft.png" />
 
 				<!--  Location 5  -->
 				<Rectangle
@@ -160,7 +161,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
-					Source="..\images\planeDown.png"/>
+					Source="..\images\planeDown.png" />
 
 				<!--  Location 8  -->
 				<Rectangle
@@ -206,7 +207,7 @@
 					Grid.Column="1"
 					Width="100"
 					Height="50"
-					Source="..\images\planeRight.png"/>
+					Source="..\images\planeRight.png" />
 
 				<!--  Parking Spot 6  -->
 				<Rectangle
@@ -228,7 +229,7 @@
 					Grid.Column="2"
 					Width="100"
 					Height="50"
-					Source="..\images\planeDown.png"/>
+					Source="..\images\planeDown.png" />
 
 				<!--  Parking Spot 7  -->
 				<Rectangle

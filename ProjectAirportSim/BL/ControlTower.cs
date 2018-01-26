@@ -9,12 +9,9 @@ namespace ProjectAirportSim.BL
 {
 	public class ControlTower
 	{
-		AirportLogConverters _converter;
+		AirportViewModel _airportVM;
 
-		public ControlTower()
-		{
-			_converter = new AirportLogConverters();
-		}
+		public ControlTower() { }
 
 		public void CreateNewPlaneInDB(string flightName, DateTime arrivalTime)
 		{
@@ -33,6 +30,7 @@ namespace ProjectAirportSim.BL
 			}
 		}
 
+
 		public ObservableCollection<FlightViewModel> GetAllFlightsFromDB()
 		{
 			var listOfFlights = new ObservableCollection<FlightViewModel>();
@@ -43,7 +41,7 @@ namespace ProjectAirportSim.BL
 				{
 					foreach (var item in entites.AirportLogs)
 					{
-						listOfFlights.Add(_converter.ConvertAirportLogToFlightVM(item));
+						listOfFlights.Add(AirportLogConverters.ConvertAirportLogToFlightVM(item));
 					}
 				}
 			}
@@ -51,79 +49,42 @@ namespace ProjectAirportSim.BL
 			return listOfFlights;
 		}
 
-		public bool CheckIfFlightsArePresentInAirport()
-		{
-			using (var entities = new AirportEntities())
-			{
-				if (entities == null) return false;
 
-				var cehckForPlanes = entities.AirportLogs.Any(p => p.DepartureDate == null);
-				return cehckForPlanes;
+		public ObservableCollection<LocationViewModel> GetListOfLocationsAndStatus()
+		{
+			var listOfLocations = new ObservableCollection<LocationViewModel>();
+			var listOfFlightsInDb = GetAllFlightsFromDB();
+
+			if (listOfFlightsInDb.Any())
+			{
+				foreach (var flight in listOfFlightsInDb)
+				{
+					listOfLocations.Add(AirportLogConverters.ConvertFlightViewModelToLocationVM(flight));
+				}
 			}
+
+			return listOfLocations;
 		}
 
-		public void RemoveFlightFromAirport(string planeName)
+
+		public void RemoveDepartingFlights()
 		{
-			using (var entities = new AirportEntities())
-			{
-				var planeToRemove = entities.AirportLogs.Where(flight => flight.FlightName == planeName).FirstOrDefault();
-
-				if (planeToRemove.Location == 6 || planeToRemove.Location == 7 || planeToRemove.Location == 9)
-					entities.AirportLogs.Remove(planeToRemove);
-
-				entities.SaveChanges();
-			}
-		}
-
-		public bool IsAnyFlightAboutToDepart()
-		{
-			using (var entities = new AirportEntities())
-			{
-				var planesInAirport = entities.AirportLogs.Where(loc => loc.Location == 9).ToList();
-				return planesInAirport.Any();
-			}
-		}
-
-		public List<FlightViewModel> GetListOfDepartingFlights()
-		{
-			using (var entities = new AirportEntities())
-			{
-				var departingFlights = entities.AirportLogs.Where(plane => plane.Location == 6 || plane.Location == 7 || plane.Location == 9).ToList();
-
-				if (departingFlights.Any())
-					return _converter.ConvertListOfAirportLogToFVModel(departingFlights);
-
-				//If there are no planes about to depart return an empty list
-				return new List<FlightViewModel>();
-			}
-		}
-
-		public Dictionary<int, bool> GetListOfLocationsAndStatus()
-		{
-			var _locations = new List<int>();
-			Dictionary<int, bool> locationDic = new Dictionary<int, bool>();
-
 			using (var entities = new AirportEntities())
 			{
 				if (entities.AirportLogs.Any())
 				{
-					_locations = entities.AirportLogs.Select(loc => loc.Location).OrderBy(o => o).Distinct().ToList();
+					var departingFlightsFromDB = entities.AirportLogs.Where(plane => plane.Location == 6 || plane.Location == 7 || plane.Location == 9).ToList();
 
-					for (int index = 1; index < 11; index++)
+					if (departingFlightsFromDB.Any())
 					{
-						var status = false;
-
-						if (_locations.Contains(index))
-						{
-							status = true;
-						}
-
-						locationDic.Add(index, status);
+						departingFlightsFromDB.ForEach(plane => entities.AirportLogs.Remove(plane));
 					}
 				}
 			}
-
-			return locationDic;
 		}
+
+
+
+		
 	}
 }

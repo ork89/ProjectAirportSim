@@ -9,11 +9,9 @@ using ProjectAirportSim.BL;
 
 namespace ProjectAirportSim.Helpers
 {
-	public class AirportLogConverters
+	public static class AirportLogConverters
 	{
-		public AirportLogConverters() { }
-
-		public Flight ConvertAirportLogToFlight(AirportLog log)
+		public static Flight ConvertAirportLogToFlight(AirportLog log)
 		{
 			var _flight = new Flight
 			{
@@ -28,7 +26,7 @@ namespace ProjectAirportSim.Helpers
 			return _flight;
 		}
 
-		public FlightViewModel ConvertAirportLogToFlightVM(AirportLog log)
+		public static FlightViewModel ConvertAirportLogToFlightVM(AirportLog log)
 		{
 			var _flightVM = new FlightViewModel
 			{
@@ -43,7 +41,7 @@ namespace ProjectAirportSim.Helpers
 			return _flightVM;
 		}
 
-		public List<FlightViewModel> ConvertListOfAirportLogToFVModel(List<AirportLog> listOfLogs)
+		public static List<FlightViewModel> ConvertListOfAirportLogToFVModel(List<AirportLog> listOfLogs)
 		{
 			var newListOfFlightVM = new List<FlightViewModel>();
 			if (listOfLogs.Count > 0)
@@ -53,19 +51,16 @@ namespace ProjectAirportSim.Helpers
 
 			return newListOfFlightVM;
 		}
-	}
 
-	public class LocationToVisibilityConverter : IValueConverter
-	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public static LocationViewModel ConvertFlightViewModelToLocationVM(FlightViewModel flight)
 		{
-			return (bool)value ? Visibility.Visible : Visibility.Collapsed;
-		}
+			var _location = new LocationViewModel
+			{
+				LocationID = flight.PlaneLocation,
+				LocationStatus = true
+			};
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return false;
+			return _location;
 		}
 	}
-
 }
