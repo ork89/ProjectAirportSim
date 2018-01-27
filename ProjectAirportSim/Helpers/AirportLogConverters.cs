@@ -1,11 +1,9 @@
 ﻿using ProjectAirportSim.Models;
 using ProjectAirportSim.ViewModels;
-using System.Collections.Generic;
-using System.Windows.Data;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Windows;
-using ProjectAirportSim.BL;
+using System.Windows.Data;
 
 namespace ProjectAirportSim.Helpers
 {
@@ -61,6 +59,19 @@ namespace ProjectAirportSim.Helpers
 			};
 
 			return _location;
+		}
+	}
+
+	public class BoolToStringConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (bool)value ? "Arriving" : "Departing";
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

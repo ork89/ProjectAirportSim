@@ -1,7 +1,6 @@
 ﻿using ProjectAirportSim.Helpers;
 using ProjectAirportSim.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -9,8 +8,7 @@ namespace ProjectAirportSim.BL
 {
 	public class ControlTower
 	{
-		AirportViewModel _airportVM;
-
+		AirportViewModel airportVM;
 		public ControlTower() { }
 
 		public void CreateNewPlaneInDB(string flightName, DateTime arrivalTime)
@@ -77,14 +75,32 @@ namespace ProjectAirportSim.BL
 
 					if (departingFlightsFromDB.Any())
 					{
-						departingFlightsFromDB.ForEach(plane => entities.AirportLogs.Remove(plane));
+						departingFlightsFromDB.ForEach(plane => plane.DepartureDate = DateTime.UtcNow);
+
+						foreach (var plane in airportVM.ListOfPlanes)
+						{
+							if (plane.DepartureDate != null)
+								airportVM.ListOfPlanes.Remove(plane);
+						}
+
+						entities.SaveChanges();
 					}
 				}
 			}
 		}
 
 
+		public void ControlTowerManager()
+		{
+			var flightsInAirport = GetAllFlightsFromDB();
+			foreach (var item in flightsInAirport)
+			{
+				if (item.PlaneLocation >= 5)
+					item.Arriving = false;
+			}
 
-		
+			RemoveDepartingFlights();
+		}
+
 	}
 }

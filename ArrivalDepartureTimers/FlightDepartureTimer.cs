@@ -6,7 +6,6 @@ namespace ArrivalDepartureTimers
 	public class FlightDepartureTimer
 	{
 		Timer timer;
-		public bool FlightDepartured { get; set; }
 		ControlTower _tower = new ControlTower();
 
 		public void PlaneDepaturing()

@@ -15,7 +15,6 @@ namespace ProjectAirportSim.ViewModels
 
 		public AirportViewModel()
 		{
-			//_tower = new ControlTower();
 			_flights = new ObservableCollection<FlightViewModel>();
 			_locations = new ObservableCollection<LocationViewModel>();
 
@@ -43,6 +42,7 @@ namespace ProjectAirportSim.ViewModels
 		private void ExecuteGetListOfFlights()
 		{
 			_flights = _tower.GetAllFlightsFromDB();
+			RaisePropertyChanged("ListOfPlanes");
 		}
 
 		private bool CanExecuteGetFlightsUpdate() => true;
