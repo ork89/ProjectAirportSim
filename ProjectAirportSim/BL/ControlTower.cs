@@ -1,5 +1,6 @@
 ﻿using ProjectAirportSim.Helpers;
 using ProjectAirportSim.ViewModels;
+using ProjectAirportSim.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,9 +9,6 @@ namespace ProjectAirportSim.BL
 {
 	public class ControlTower
 	{
-		AirportViewModel airportVM;
-		public ControlTower() { }
-
 		public void CreateNewPlaneInDB(string flightName, DateTime arrivalTime)
 		{
 			using (var entities = new AirportEntities())
@@ -71,36 +69,44 @@ namespace ProjectAirportSim.BL
 			{
 				if (entities.AirportLogs.Any())
 				{
-					var departingFlightsFromDB = entities.AirportLogs.Where(plane => plane.Location == 6 || plane.Location == 7 || plane.Location == 9).ToList();
-
-					if (departingFlightsFromDB.Any())
-					{
-						departingFlightsFromDB.ForEach(plane => plane.DepartureDate = DateTime.UtcNow);
-
-						foreach (var plane in airportVM.ListOfPlanes)
-						{
-							if (plane.DepartureDate != null)
-								airportVM.ListOfPlanes.Remove(plane);
-						}
-
-						entities.SaveChanges();
-					}
+					entities.AirportLogs.Where(pl => pl.Location == 9).Select(plane => plane).ToList().ForEach(d => d.DepartureDate = DateTime.UtcNow);
 				}
+
+				entities.SaveChanges();
 			}
 		}
 
 
 		public void ControlTowerManager()
 		{
-			var flightsInAirport = GetAllFlightsFromDB();
-			foreach (var item in flightsInAirport)
+			AirportViewModel airportVM = new AirportViewModel();
+			MainWindow window = new MainWindow();
+
+			using (var entities = new AirportEntities())
 			{
-				if (item.PlaneLocation >= 5)
-					item.Arriving = false;
+				if (entities.AirportLogs != null && airportVM.ListOfLocations != null && airportVM.ListOfPlanes != null)
+				{
+					window.PlaneVisibility();
+					foreach (var item in airportVM.ListOfLocations)
+					{
+						var next = item.LocationID + 1;
+
+						if (airportVM.ListOfLocations.Where(l => l.LocationID == next).Select(lo => lo.LocationStatus).FirstOrDefault())
+						{
+							item.LocationStatus = false;
+							var location = airportVM.ListOfLocations.Where(l => l.LocationID == next).Select(lo => lo.LocationStatus = true).ToList();
+							var flights = airportVM.ListOfPlanes.Where(p => p.PlaneLocation == next).Select(pl => pl.PlaneLocation++);
+						}
+					}
+
+					foreach (var log in entities.AirportLogs)
+					{
+						log.Location = airportVM.ListOfPlanes.Where(i => i.ID == log.ID).Select(l => l.PlaneLocation).FirstOrDefault();
+					}
+
+					entities.SaveChanges();
+				}
 			}
-
-			RemoveDepartingFlights();
 		}
-
 	}
 }

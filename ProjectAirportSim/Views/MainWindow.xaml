@@ -194,13 +194,6 @@
 					VerticalAlignment="Center"
 					Content="Driveway"
 					FontSize="16" />
-				<Image
-					Name="DrivewayParking"
-					Grid.Row="5"
-					Grid.Column="1"
-					Width="100"
-					Height="50"
-					Source="..\images\planeRight.png" />
 
 				<!--  Parking Spot 6  -->
 				<Rectangle

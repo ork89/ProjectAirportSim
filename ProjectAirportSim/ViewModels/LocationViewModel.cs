@@ -23,7 +23,7 @@ namespace ProjectAirportSim.ViewModels
 			get { return AirportLocation.LocationID; }
 			set
 			{
-				if (AirportLocation.LocationID != value)
+				if (AirportLocation.LocationID != value && value < 10 && value > 0)
 				{
 					AirportLocation.LocationID = value;
 					RaisePropertyChanged("LocationID");

@@ -17,7 +17,7 @@ namespace ProjectAirportSim.ViewModels
 		{
 			_flights = new ObservableCollection<FlightViewModel>();
 			_locations = new ObservableCollection<LocationViewModel>();
-
+			
 			ExecuteGetListOfFlights();
 			GetListOfLocations();
 		}
@@ -25,18 +25,27 @@ namespace ProjectAirportSim.ViewModels
 		public ObservableCollection<FlightViewModel> ListOfPlanes
 		{
 			get { return _flights; }
-			set { _flights = value; }
+			set
+			{
+				_flights = value;
+				RaisePropertyChanged("ListOfPlanes");
+			}
 		}
 
 		public ObservableCollection<LocationViewModel> ListOfLocations
 		{
 			get { return _locations; }
-			set { _locations = value; }
+			set
+			{
+				_locations = value;
+				RaisePropertyChanged("ListOfLocations");
+			}
 		}
 
 		private void GetListOfLocations()
 		{
 			_locations = _tower.GetListOfLocationsAndStatus();
+			RaisePropertyChanged("ListOfLocations");
 		}
 
 		private void ExecuteGetListOfFlights()

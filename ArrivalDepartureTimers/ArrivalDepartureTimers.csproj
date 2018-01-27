@@ -55,6 +55,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlTowerTimer.cs" />
     <Compile Include="FlightArrivalTimer.cs" />
     <Compile Include="FlightDepartureTimer.cs" />
     <Compile Include="Timers.cs" />

@@ -1,4 +1,6 @@
 ﻿using ProjectAirportSim.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,9 +21,8 @@ namespace ProjectAirportSim.Views
 			PlaneVisibility();
 		}
 
-		private void PlaneVisibility()
+		public void PlaneVisibility()
 		{
-			var locations = airportVM.ListOfLocations;
 			Image[] imageArr =
 			{
 				InAir,
@@ -35,15 +36,16 @@ namespace ProjectAirportSim.Views
 				TakeOff
 			};
 
-			foreach (var item in locations)
+			for (int index = 0; index < imageArr.Length; index++)
 			{
-				if (item.LocationStatus)
+				bool locationIndex = airportVM.ListOfLocations.Where(l => l.LocationID == index+1).Select( s => s.LocationStatus).FirstOrDefault();
+				if (locationIndex)
 				{
-					imageArr[item.LocationID].Visibility = Visibility.Visible;
+					imageArr[index].Visibility = Visibility.Visible;
 				}
 				else
 				{
-					imageArr[item.LocationID].Visibility = Visibility.Collapsed;
+					imageArr[index].Visibility = Visibility.Collapsed;
 				}
 			}
 		}
