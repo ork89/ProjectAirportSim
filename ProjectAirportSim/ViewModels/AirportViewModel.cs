@@ -24,18 +24,8 @@ namespace ProjectAirportSim.ViewModels
 
 		private void NotifyListOfFlightsUpdated(List<Flight> flightList, List<Location> locationList)
 		{
-			ListOfPlanes = new ObservableCollection<Flight>();
-			ListOfLocations = new ObservableCollection<Location>();
-			foreach (var item in flightList)
-			{
-				ListOfPlanes.Add(item);
-			}
-
-			foreach (var item in locationList)
-			{
-				if (item.LocationID == 1 && item.IsOccupied) { InAir = true; }
-				ListOfLocations.Add(item);
-			}
+			ListOfPlanes = new ObservableCollection<Flight>(flightList);
+			ListOfLocations = new ObservableCollection<Location>(locationList);
 		}
 
 		public ObservableCollection<Flight> ListOfPlanes
@@ -57,35 +47,5 @@ namespace ProjectAirportSim.ViewModels
 				RaisePropertyChanged("ListOfLocations");
 			}
 		}
-
-		private bool _inAir;
-
-		public bool InAir
-		{
-			get { return _inAir; }
-			set
-			{
-				_inAir = value;
-
-				RaisePropertyChanged();
-			}
-		}
-
-
-		//private void GetListOfLocations()
-		//{
-		//	_locations = _tower.GetListOfLocationsAndStatus();
-		//	RaisePropertyChanged();
-		//}
-
-		//private void ExecuteGetListOfFlights()
-		//{
-		//	_flights = _tower.GetAllFlightsFromDB();
-		//	RaisePropertyChanged();
-		//}
-
-		//private bool CanExecuteGetFlightsUpdate() => true;
-
-		//public ICommand UpdateListOfFlights { get { return new RelayCommand(ExecuteGetListOfFlights, CanExecuteGetFlightsUpdate); } }
 	}
 }

@@ -11,6 +11,7 @@ namespace ProjectAirportSim.BL
 	public class ControlTower
 	{
 		Timer timer;
+		private int _counter;
 		public event ControlTowerIncomingFlightNotify ControlTowerFlightNotifyEvent;
 
 		public ControlTower()
@@ -36,8 +37,6 @@ namespace ProjectAirportSim.BL
 			}
 		}
 
-
-
 		public void StartContorlTowerManager()
 		{
 			timer = new Timer { Interval = 1000 };
@@ -48,7 +47,14 @@ namespace ProjectAirportSim.BL
 
 		private void Timer_Elapsed(object sender, ElapsedEventArgs e)
 		{
+			_counter++;
 			GetAllFlightsFromDB();
+
+			if (_counter == 5)
+			{
+				ControlTowerManager();
+				_counter = 0;
+			}
 		}
 
 		public void GetAllFlightsFromDB()
@@ -85,7 +91,9 @@ namespace ProjectAirportSim.BL
 			{
 				if (entities.AirportLogs.Any())
 				{
-					entities.AirportLogs.Where(pl => pl.Location == 9).Select(plane => plane).ToList().ForEach(d => d.DepartureDate = DateTime.UtcNow);
+					entities.AirportLogs.Where(pl => pl.Location == 9)
+										.Select(plane => plane).ToList()
+										.ForEach(d => { d.DepartureDate = DateTime.UtcNow; d.Arriving = false; d.Location = 0; });
 				}
 
 				entities.SaveChanges();
@@ -95,10 +103,24 @@ namespace ProjectAirportSim.BL
 
 		public void ControlTowerManager()
 		{
-
 			using (var entities = new AirportEntities())
 			{
+				if (entities.AirportLogs.Any())
+				{
+					var _planesLocations = Converters.ConvertAirportLogListToFlightList(entities.AirportLogs.OrderBy(l => l.Location).ToList());
+					_planesLocations.SkipWhile(l => l.Location == 4 || l.Location == 6 || l.Location == 7);
 
+					foreach (var item in _planesLocations)
+					{
+						var _nextLocation = item.Location + 1;
+						if (!_planesLocations.Exists(l => l.Location == _nextLocation) && item.Location < 9 && item.DepartureDate == null)
+						{
+							entities.AirportLogs.Where(p => p.ID == item.ID).FirstOrDefault().Location++;
+						}
+					}
+
+					entities.SaveChanges();
+				}
 			}
 		}
 	}

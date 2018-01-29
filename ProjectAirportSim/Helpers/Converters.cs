@@ -1,5 +1,4 @@
 ﻿using ProjectAirportSim.Models;
-using ProjectAirportSim.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,6 +6,7 @@ using System.Windows.Data;
 
 namespace ProjectAirportSim.Helpers
 {
+	//Adapters
 	public static class Converters
 	{
 		public static Flight ConvertAirportLogToFlight(AirportLog log)
@@ -34,8 +34,19 @@ namespace ProjectAirportSim.Helpers
 
 			return _location;
 		}
+
+		public static List<Flight> ConvertAirportLogListToFlightList(List<AirportLog> logList)
+		{
+			var _flightList = new List<Flight>();
+
+			if (logList != null && logList.Count > 0)
+				logList.ForEach(log => _flightList.Add(ConvertAirportLogToFlight(log)));
+
+			return _flightList;
+		}
 	}
 
+	//Converters
 	public class BoolToStringConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
