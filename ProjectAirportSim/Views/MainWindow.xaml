@@ -13,6 +13,7 @@
 
 	<Window.Resources>
 		<helper:BoolToStringConverter x:Key="BoolToStatusString" />
+		<BooleanToVisibilityConverter x:Key="BoolToVisibility" />
 	</Window.Resources>
 
 	<Grid>
@@ -41,21 +42,13 @@
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
-						<Label Content="{Binding PlaneLocation}" />
+						<Label Content="{Binding Location}" />
 						<Label Content="{Binding FlightName}" />
 						<Label Content="{Binding Arriving, Converter={StaticResource BoolToStatusString}}" />
 					</StackPanel>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
-		<Button
-			Grid.Row="1"
-			Width="Auto"
-			Margin="0,0,20,0"
-			HorizontalAlignment="Center"
-			VerticalAlignment="Center"
-			Command="{Binding UpdateListOfFlights}"
-			Content="Refresh List" />
 
 		<StackPanel
 			Grid.Row="0"
@@ -96,7 +89,8 @@
 					Grid.Column="5"
 					Width="100"
 					Height="50"
-					Source="..\images\planeLeft.png" />
+					Source="..\images\planeLeft.png"
+					Visibility="{Binding Path=InAir, Converter={StaticResource BoolToVisibility}}" />
 
 				<!--  Location 4  -->
 				<Rectangle

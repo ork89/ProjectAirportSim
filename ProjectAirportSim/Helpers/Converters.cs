@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace ProjectAirportSim.Helpers
 {
-	public static class AirportLogConverters
+	public static class Converters
 	{
 		public static Flight ConvertAirportLogToFlight(AirportLog log)
 		{
@@ -24,38 +24,12 @@ namespace ProjectAirportSim.Helpers
 			return _flight;
 		}
 
-		public static FlightViewModel ConvertAirportLogToFlightVM(AirportLog log)
+		public static Location ConvertFlightLocationToLocation(AirportLog log)
 		{
-			var _flightVM = new FlightViewModel
+			var _location = new Location
 			{
-				ID = log.ID,
-				FlightName = log.FlightName,
-				PlaneLocation = log.Location,
-				ArrivalDate = log.ArrivalDate,
-				DepartureDate = log.DepartureDate,
-				Arriving = (bool)log.Arriving
-			};
-
-			return _flightVM;
-		}
-
-		public static List<FlightViewModel> ConvertListOfAirportLogToFVModel(List<AirportLog> listOfLogs)
-		{
-			var newListOfFlightVM = new List<FlightViewModel>();
-			if (listOfLogs.Count > 0)
-			{
-				listOfLogs.ForEach(item => newListOfFlightVM.Add(ConvertAirportLogToFlightVM(item)));
-			}
-
-			return newListOfFlightVM;
-		}
-
-		public static LocationViewModel ConvertFlightViewModelToLocationVM(FlightViewModel flight)
-		{
-			var _location = new LocationViewModel
-			{
-				LocationID = flight.PlaneLocation,
-				LocationStatus = true
+				LocationID = log.Location,
+				IsOccupied = true
 			};
 
 			return _location;

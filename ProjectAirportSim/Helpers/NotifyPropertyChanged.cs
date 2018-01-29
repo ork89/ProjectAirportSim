@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace ProjectAirportSim.Helpers
 {
@@ -20,21 +21,9 @@ namespace ProjectAirportSim.Helpers
 			this.RaisePropertyChanged(propertyName);
 		}
 
-		protected void RaisePropertyChanged(String propertyName)
+		protected void RaisePropertyChanged([CallerMemberName] String propertyName = "")
 		{
-			VerifyPropertyName(propertyName);
-			OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-		}
-
-		
-		public void VerifyPropertyName(String propertyName)
-		{
-			// verify that the property name matches a real,  
-			// public, instance property on this Object.
-			if (TypeDescriptor.GetProperties(this)[propertyName] == null)
-			{
-				Debug.Fail("Invalid property name: " + propertyName);
-			}
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }

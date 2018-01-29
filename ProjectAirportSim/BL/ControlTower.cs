@@ -1,14 +1,24 @@
 ﻿using ProjectAirportSim.Helpers;
-using ProjectAirportSim.ViewModels;
-using ProjectAirportSim.Views;
+using ProjectAirportSim.Models;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 
 namespace ProjectAirportSim.BL
 {
+	public delegate void ControlTowerIncomingFlightNotify(List<Flight> flights, List<Location> locations);
 	public class ControlTower
 	{
+		Timer timer;
+		public event ControlTowerIncomingFlightNotify ControlTowerFlightNotifyEvent;
+
+		public ControlTower()
+		{
+			StartContorlTowerManager();
+		}
+
+
 		public void CreateNewPlaneInDB(string flightName, DateTime arrivalTime)
 		{
 			using (var entities = new AirportEntities())
@@ -27,39 +37,45 @@ namespace ProjectAirportSim.BL
 		}
 
 
-		public ObservableCollection<FlightViewModel> GetAllFlightsFromDB()
-		{
-			var listOfFlights = new ObservableCollection<FlightViewModel>();
 
-			using (var entites = new AirportEntities())
+		public void StartContorlTowerManager()
+		{
+			timer = new Timer { Interval = 1000 };
+			timer.Elapsed += Timer_Elapsed;
+			timer.AutoReset = true;
+			timer.Start();
+		}
+
+		private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			GetAllFlightsFromDB();
+		}
+
+		public void GetAllFlightsFromDB()
+		{
+			var _listOfFlights = new List<Flight>();
+			var _locations = new List<Location>();
+
+			using (var entities = new AirportEntities())
 			{
-				if (entites != null)
+				if (entities != null)
 				{
-					foreach (var item in entites.AirportLogs)
+					foreach (var item in entities.AirportLogs)
 					{
-						listOfFlights.Add(AirportLogConverters.ConvertAirportLogToFlightVM(item));
+						_listOfFlights.Add(Converters.ConvertAirportLogToFlight(item));
+						_locations.Add(Converters.ConvertFlightLocationToLocation(item));
 					}
 				}
 			}
-
-			return listOfFlights;
+			NotifyControlTower(_listOfFlights, _locations);
 		}
 
-
-		public ObservableCollection<LocationViewModel> GetListOfLocationsAndStatus()
+		private void NotifyControlTower(List<Flight> listOfFlights, List<Location> locations)
 		{
-			var listOfLocations = new ObservableCollection<LocationViewModel>();
-			var listOfFlightsInDb = GetAllFlightsFromDB();
-
-			if (listOfFlightsInDb.Any())
+			if (ControlTowerFlightNotifyEvent != null)
 			{
-				foreach (var flight in listOfFlightsInDb)
-				{
-					listOfLocations.Add(AirportLogConverters.ConvertFlightViewModelToLocationVM(flight));
-				}
+				ControlTowerFlightNotifyEvent.Invoke(new List<Flight>(listOfFlights), new List<Location>(locations));
 			}
-
-			return listOfLocations;
 		}
 
 
@@ -79,33 +95,10 @@ namespace ProjectAirportSim.BL
 
 		public void ControlTowerManager()
 		{
-			AirportViewModel airportVM = new AirportViewModel();
-			MainWindow window = new MainWindow();
 
 			using (var entities = new AirportEntities())
 			{
-				if (entities.AirportLogs != null && airportVM.ListOfLocations != null && airportVM.ListOfPlanes != null)
-				{
-					window.PlaneVisibility();
-					foreach (var item in airportVM.ListOfLocations)
-					{
-						var next = item.LocationID + 1;
 
-						if (airportVM.ListOfLocations.Where(l => l.LocationID == next).Select(lo => lo.LocationStatus).FirstOrDefault())
-						{
-							item.LocationStatus = false;
-							var location = airportVM.ListOfLocations.Where(l => l.LocationID == next).Select(lo => lo.LocationStatus = true).ToList();
-							var flights = airportVM.ListOfPlanes.Where(p => p.PlaneLocation == next).Select(pl => pl.PlaneLocation++);
-						}
-					}
-
-					foreach (var log in entities.AirportLogs)
-					{
-						log.Location = airportVM.ListOfPlanes.Where(i => i.ID == log.ID).Select(l => l.PlaneLocation).FirstOrDefault();
-					}
-
-					entities.SaveChanges();
-				}
 			}
 		}
 	}

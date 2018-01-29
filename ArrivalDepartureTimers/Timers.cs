@@ -15,12 +15,10 @@ namespace ArrivalDepartureTimers
 
 			FlightArrivalTimer arrivalTimer = new FlightArrivalTimer();
 			FlightDepartureTimer departureTimer = new FlightDepartureTimer();
-			ControlTowerTimer controlTower = new ControlTowerTimer();
 
 			arrivalTimer.PlaneArriving();
 			departureTimer.PlaneDepaturing();
-			controlTower.StartContorlTowerManager();
-			
+
 			_app.Run(_window);
 		}
 	}

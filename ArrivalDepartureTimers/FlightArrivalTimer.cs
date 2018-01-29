@@ -23,7 +23,7 @@ namespace ArrivalDepartureTimers
 		{
 			var planeName = GenerateNewFlightName();
 			var arrivalTime = e.SignalTime;
-			
+
 			_tower.CreateNewPlaneInDB(planeName, arrivalTime);
 		}
 
