@@ -1,4 +1,5 @@
 ﻿using ProjectAirportSim.BL;
+using System;
 using System.Timers;
 
 namespace ArrivalDepartureTimers
@@ -18,6 +19,7 @@ namespace ArrivalDepartureTimers
 
 		private void OnTimedEvent(object sender, ElapsedEventArgs e)
 		{
+			Console.WriteLine("Flight is Departured at " + e.SignalTime);
 			_tower.RemoveDepartingFlights();
 		}
 	}
