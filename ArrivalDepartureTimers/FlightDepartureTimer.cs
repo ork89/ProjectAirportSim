@@ -10,7 +10,7 @@ namespace ArrivalDepartureTimers
 
 		public void PlaneDepaturing()
 		{
-			timer = new Timer { Interval = 3000 };
+			timer = new Timer { Interval = 5000 };
 			timer.Elapsed += OnTimedEvent;
 			timer.AutoReset = true;
 			timer.Start();

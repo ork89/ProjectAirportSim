@@ -16,7 +16,10 @@ namespace ArrivalDepartureTimers
 			FlightArrivalTimer arrivalTimer = new FlightArrivalTimer();
 			FlightDepartureTimer departureTimer = new FlightDepartureTimer();
 
+			// Start creating planes
 			arrivalTimer.PlaneArriving();
+
+			// Start removing planes
 			departureTimer.PlaneDepaturing();
 
 			_app.Run(_window);

@@ -88,7 +88,6 @@
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Helpers\NotifyPropertyChanged.cs" />
     <Compile Include="Helpers\PropertySupport.cs" />
-    <Compile Include="Helpers\RelayCommands.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ViewModels\AirportViewModel.cs" />
     <Page Include="Views\MainWindow.xaml">

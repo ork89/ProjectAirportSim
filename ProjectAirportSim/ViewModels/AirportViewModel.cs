@@ -15,9 +15,9 @@ namespace ProjectAirportSim.ViewModels
 
 		public AirportViewModel()
 		{
+			_tower = new ControlTower();
 			_flights = new ObservableCollection<Flight>();
 			_locations = new ObservableCollection<Location>();
-			_tower = new ControlTower();
 			_tower.ControlTowerFlightNotifyEvent += NotifyListOfFlightsUpdated;
 
 		}

@@ -6,6 +6,7 @@ namespace ProjectAirportSim.Helpers
 {
 	public static class PropertySupport
 	{
+		// Used for INotifyPropertyChanged
 		public static String ExtractPropertyName<T>(Expression<Func<T>> propertyExpresssion)
 		{
 			if (propertyExpresssion == null)
